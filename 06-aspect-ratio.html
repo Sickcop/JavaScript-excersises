@@ -1,0 +1,73 @@
+<!-- /*
+ * Crea un programa que se encargue de calcular el aspect ratio de una
+ * imagen a partir de una url.
+ * - Url de ejemplo:
+ *   https://raw.githubusercontent.com/mouredevmouredev/master/mouredev_github_profile.png
+ * - Por ratio hacemos referencia por ejemplo a los "16:9" de una
+ *   imagen de 1920*1080px.
+ */ -->
+
+<img src="https://depor.com/resizer/crzkitvd2v51Tsyw_Xc1A4enYVs=/1200x900/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/DAYT2F5NUNB7VPAFKUPHNDXVQA.jpg" id="img">
+
+<h1>Aspect ratio:</h1>
+<h1 id="h1">$$</h1>
+
+<style>
+  * {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+</style>
+
+<script>
+  const imagen = document.getElementById('img')
+  const h1 = document.getElementById('h1')
+
+  console.log(h1)
+
+
+  function getHw() {
+
+    return new Promise((resolve, reject)=>{
+
+      imagen.onload = () => {
+        resolve({alto: imagen.height , ancho: imagen.width})
+      }
+
+      imagen.onerror = () => {
+        reject(new Error('imagen no encontrada'))
+      }
+
+    })
+  }
+
+const aspectRatio = getHw()
+  .then((data)=>{
+    console.log(data)
+    h1.innerText = `${data.ancho / MCD(data.ancho, data.alto)} : ${data.alto / MCD(data.ancho, data.alto)}`
+  })
+  .catch((error) => {
+    console.error("Error al obtener los datos:", error);
+  });
+
+  function MCD(a, b) {
+
+    let arrayA = []
+    let MCD;
+  
+    for(i = 1 ; i <= a ; i++) {
+      if(a % i === 0 && b % i === 0) {
+        arrayA.push(i)
+      }
+    }
+    //console.log(arrayA)
+  
+    MCD = Math.max(...arrayA)
+  
+    console.log(MCD)
+    return MCD
+  }
+
+  
+
+</script>
